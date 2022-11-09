@@ -20,18 +20,44 @@
                 <th>Address</th>
                 <th>Date of birth</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach($customers as $customer)
             <tr>
-                <th>{{$custoer->customer_id}}</th>
-                <th>{{$custoer->name}}</th>
-                <th>{{$custoer->email}}</th>
-                <th>{{$custoer->gender}}</th>
-                <th>{{$custoer->address}}</th>
-                <th>{{$custoer->dob}}</th>
-                <th>{{$custoer->status}}</th>
+                <th>{{$customer->customer_id}}</th>
+                <th>{{$customer->name}}</th>
+                <th>{{$customer->email}}</th>
+                <th>
+                  @if($customer->gender == "M")
+                  Male
+                  @elseif($customer->gender == "F")
+                  Female
+                  @elseif($customer->gender == "O")
+                  Other
+                  @else
+                  Not Shared
+                  @endif
+                </th>
+                <th>{{$customer->address}}</th>
+                <th>{{$customer->dob}}</th>
+                <th>
+                  @if($customer->status == 1)
+                  <span class="badge badge-success">active</span>
+                  @else
+                  <span class="badge badge-danger">inactive</span>
+                  @endif
+                </th>
+                <th>
+                  <!-- <a href="delete/{{$customer->customer_id}}"> -->
+                  <a href="{{route('customer.delete',['id'=>$customer->customer_id])}}">
+                    <button class="btn btn-danger">Delete</button>
+                  </a>
+                  <a href="{{route('customer.edit',['id'=>$customer->customer_id])}}">
+                    <button class="btn btn-primary">Edit</button>
+                  </a>
+                </th>
             </tr>
             @endforeach
         </tbody>

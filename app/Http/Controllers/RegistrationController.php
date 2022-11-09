@@ -28,6 +28,10 @@ class RegistrationController extends Controller
         echo "<pre>";
         print_r($request->all());
 
+        Log::info(isset($request['gender']));
+
+        // if(isset())
+
         Customer::insert([
             'name' => $request['name'],
             'email' => $request['email'],
@@ -41,8 +45,25 @@ class RegistrationController extends Controller
     }
     public function view()
     {
-        $customers=Customers::all();
-        $data =compact('customers');
+        $customers = Customer::all();
+        $data = compact('customers');
         return view('customer-view')->with($data);
+    }
+    public function delete($id)
+    {
+        $customer = Customer::find($id);
+        if(!is_null($customer)){
+            $customer->delete();
+        }
+        return redirect('customer/view');
+    }
+    public function edit($id)
+    {
+        $customer = Customer::find($id);
+        if(!is_null($customer)){
+            $url = url('/customer/update') ."/". $id;
+            $data=compact('custmer');
+        }
+        return view('register')->with($data);
     }
 }

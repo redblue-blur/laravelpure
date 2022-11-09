@@ -34,7 +34,7 @@
                   <div class="list-group">
                     <label for="">Gender</label>
                     <select name="gender" class="form-select form-select-lg mb-3 btn border-primary" aria-label=".form-select-lg example">
-                      <option value=NULL selected>select</option>
+                      <option disabled selected>select</option>
                       <option value="M">Male</option>
                       <option value="F">Female</option>
                       <option value="O">Other</option>
