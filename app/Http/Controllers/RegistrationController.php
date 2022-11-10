@@ -10,9 +10,12 @@ use App\Models\Customer;
 
 class RegistrationController extends Controller
 {
-    public function index()
+    public function create()
     {
-        return view('form');
+        $url = url('/customer');
+        $title="Registeration";
+        $data=compact('title','url');
+        return view('form')->with($data);
     }
     public function register(Request $request)
     {
@@ -62,8 +65,29 @@ class RegistrationController extends Controller
         $customer = Customer::find($id);
         if(!is_null($customer)){
             $url = url('/customer/update') ."/". $id;
-            $data=compact('custmer');
+            $title="Update";
+            $data=compact('customer','title',"url");
+        } else{
+            return redirect('customer/view');
         }
-        return view('register')->with($data);
+        return view('form')->with($data);
+    }
+    public function update($id,Request $request)
+    {
+        Log::info($request);
+        $request->validate(
+            [
+                'name'=>'required',
+                'email'=>'required|email',
+            ]
+        );
+        $customer = Customer::find($id);
+        $customer->name = $request['name'];
+        $customer->email = $request['email'];
+        $customer->address = $request['address'];
+        $customer->gender = $request['gender'];
+        $customer->dob = $request['dob'];
+        $customer->save();
+        return redirect('customer/view');
     }
 }

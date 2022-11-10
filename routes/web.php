@@ -16,13 +16,13 @@ use App\Models\Customer;
 */
 
 
-Route::get('/register', [RegistrationController::class, 'index']);
-Route::post('/register', [RegistrationController::class, 'register']);
+Route::get('/customer', [RegistrationController::class, 'create']);
+Route::post('/customer', [RegistrationController::class, 'register']);
 Route::get('/customer/delete/{id}',[RegistrationController::class, 'delete'])->name('customer.delete');
-Route::get('/customer/edit/{id}',[RegistrationController::class, 'edit'])->name('customer.edit');
-Route::get('/customer/update/{id}',[RegistrationController::class, 'updatee'])->name('customer.update');
+Route::get('/customer/edit/{id}',[RegistrationController::class, 'edit']);
+Route::post('/customer/update/{id}',[RegistrationController::class, 'update']);
 Route::get('/customer/view', [RegistrationController::class, 'view']);
-Route::get('/customer', function () {
+Route::get('/customerinfo', function () {
     $customers = Customer::all();
     echo "<pre>";
     print_r($customers->toArray());

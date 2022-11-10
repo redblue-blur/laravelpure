@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="">{{$label}}</label>
-    <input type="{{$type}}" class="form-control border border-primary" name="{{$name}}">
+    <input type="{{$type}}" class="form-control border border-primary" name="{{$name}}" value="{{$value}}">
     <span class="text-danger">
         <!-- @error('name')
             {{$message}}

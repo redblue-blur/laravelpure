@@ -17,7 +17,7 @@
   
   </head>
   <body>
-    <form action="{{url('/')}}/register" method="post">
+    <form action="{{$url}}" method="post">
         @csrf
         <!-- <pre>
             @php
@@ -25,27 +25,29 @@
             @endphp
         </pre> -->
         <div>
-            <h1 class="form-group">Registration</h1>
+            <h1 class="form-group">{{$title}}</h1>
             <div class="container">
-                <x-input name="name" type="text" label="Name"/>
-                <x-input name="email" type="text" label="Email"/>
-                <x-input name="address" type="text" label="Address"/>
+                <x-input name="name" type="text" label="Name" value="{{$customer->name}}"/>
+                <x-input name="email" type="text" label="Email" value="{{$customer->email}}"/>
+                <x-input name="address" type="text" label="Address" value="{{$customer->address}}"/>
                 <div class="row">
                   <div class="list-group">
                     <label for="">Gender</label>
                     <select name="gender" class="form-select form-select-lg mb-3 btn border-primary" aria-label=".form-select-lg example">
                       <option disabled selected>select</option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
-                      <option value="O">Other</option>
+                      <option value="M" {{$customer->gender=="M"? 'selected':''}}>Male</option>
+                      <option value="F" {{$customer->gender=="F"? 'selected':''}}>Female</option>
+                      <option value="O" {{$customer->gender=="O"? 'selected':''}}>Other</option>
                     </select>
                   </div>
                   <div class="col">
-                  <x-input name="dob" type="date" label="date of birth"/>
+                  <x-input name="dob" type="date" label="date of birth" value="{{$customer->dob}}"/>
                   </div>
                 </div>
-                <x-input name="password" type="password" label="Password"/>
-                <x-input name="password_confirmation" type="password" label="Confirm Password"/>
+                @if(is_null($customer->password))
+                  <x-input name="password" type="password" label="Password" value=""/>
+                  <x-input name="password_confirmation" type="password" label="Confirm Password" value=""/>
+                @endif
                 <button class="btn btn-primary">Submit</button>
             </div>
         </div>
